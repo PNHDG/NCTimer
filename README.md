@@ -64,7 +64,7 @@
 
     <script>
         function startFixedTimer(hours, minutes, timerId) {
-            var totalTime = (hours * 3600) + (minutes * 60);
+            var totalTime = localStorage.getItem(timerId) || (hours * 3600) + (minutes * 60);
             var timerDisplay = document.getElementById(timerId);
             var interval = setInterval(function() {
                 if (totalTime <= 0) {
@@ -76,9 +76,16 @@
                     var secondsDisplay = totalTime % 60;
                     timerDisplay.textContent = ("0" + hoursDisplay).slice(-2) + ":" + ("0" + minutesDisplay).slice(-2) + ":" + ("0" + secondsDisplay).slice(-2);
                     totalTime--;
+                    localStorage.setItem(timerId, totalTime);
                 }
             }, 1000);
         }
-    </script>
-</body>
-</html>
+
+        window.onload = function() {
+            startFixedTimer(25, 0, 'timer1');
+            startFixedTimer(10, 0, 'timer2');
+            startFixedTimer(10, 0, 'timer3');
+            startFixedTimer(10, 0, 'timer4');
+            startFixedTimer(10, 0, 'timer5');
+            startFixedTimer(10, 0, 'timer6');
+            startFixedTimer(10
