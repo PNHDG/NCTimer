@@ -40,24 +40,61 @@
             <div id="timer1" class="timer">10:00:00</div>
             <button onclick="startTimer('timer1', 36000, this)">Убит!</button>
         </div>
-        <!-- Другие таймеры здесь -->
+        <div class="timer-container">
+            <div class="title">Грот 2 - Гатфилион</div>
+            <div id="timer2" class="timer">10:00:00</div>
+            <button onclick="startTimer('timer2', 36000, this)">Убит!</button>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="timer-container">
+                    <div class="title">Грот 3 - Моди</div>
+                    <div id="timer3" class="timer">10:00:00</div>
+                    <button onclick="startTimer('timer3', 36000, this)">Убит!</button>
+                </div>
+            </div>
+            <div class="column">
+                <div class="timer-container">
+                    <div class="title">Грот 3 - Хотура</div>
+                    <div id="timer4" class="timer">10:00:00</div>
+                    <button onclick="startTimer('timer4', 36000, this)">Убит!</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="timer-container">
+                    <div class="title">Грот 4 - Стомид</div>
+                    <div id="timer5" class="timer">10:00:00</div>
+                    <button onclick="startTimer('timer5', 36000, this)">Убит!</button>
+                </div>
+            </div>
+            <div class="column">
+                <div class="timer-container">
+                    <div class="title">Грот 4 - Фандир</div>
+                    <div id="timer6" class="timer">10:00:00</div>
+                    <button onclick="startTimer('timer6', 36000, this)">Убит!</button>
+                </div>
+            </div>
+        </div>
+        <div class="timer-container">
+            <div class="title">Грот 5 - Мольтанис</div>
+            <div id="timer7" class="timer">10:00:00</div>
+            <button onclick="startTimer('timer7', 36000, this)">Убит!</button>
+        </div>
+        <div class="timer-container">
+            <div class="title">Грот 6 - Дардаль Лока</div>
+            <div id="timer8" class="timer">10:00:00</div>
+            <button onclick="startTimer('timer8', 36000, this)">Убит!</button>
+        </div>
+        <div class="timer-container">
+            <div class="title">Всадник смерти</div>
+            <div id="timer9" class="timer">10:00:00</div>
+            <button onclick="startTimer('timer9', 36000, this)">Убит!</button>
+        </div>
     </div>
 
     <script>
-        window.onload = function() {
-            // Читаем параметры из URL и устанавливаем время таймеров
-            var urlParams = new URLSearchParams(window.location.search);
-            for (var i = 1; i <= 9; i++) {
-                var timerId = 'timer' + i;
-                var timerElement = document.getElementById(timerId);
-                var timerTime = urlParams.get(timerId);
-                if (timerTime) {
-                    timerElement.textContent = formatTime(timerTime);
-                    startTimer(timerId, timerTime, document.querySelector('#' + timerId + '+button'));
-                }
-            }
-        };
-
         function startTimer(timerId, duration, button) {
             var timerElement = document.getElementById(timerId);
             var remainingTime = duration;
@@ -70,29 +107,20 @@
                 var minutes = Math.floor((remainingTime % 3600) / 60);
                 var seconds = remainingTime % 60;
 
-                timerElement.textContent = formatTime(remainingTime);
+                timerElement.textContent = 
+                    (hours < 10 ? '0' : '') + hours + ':' + 
+                    (minutes < 10 ? '0' : '') + minutes + ':' + 
+                    (seconds < 10 ? '0' : '') + seconds;
 
                 if (remainingTime <= 0) {
                     clearInterval(interval);
                 } else {
                     remainingTime--;
                 }
-
-                // Сохраняем время таймера в локальное хранилище
-                localStorage.setItem(timerId, remainingTime);
             }, 1000);
 
             // После запуска таймера делаем кнопку неактивной
             button.disabled = true;
-        }
-
-        function formatTime(time) {
-            var hours = Math.floor(time / 3600);
-            var minutes = Math.floor((time % 3600) / 60);
-            var seconds = time % 60;
-            return (hours < 10 ? '0' : '') + hours + ':' + 
-                   (minutes < 10 ? '0' : '') + minutes + ':' + 
-                   (seconds < 10 ? '0' : '') + seconds;
         }
     </script>
 </body>
